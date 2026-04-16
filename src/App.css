@@ -15,14 +15,14 @@
   --font-mono: 'DM Mono', monospace;
 }
 
-/* ── Reset & Base ── */
+/* ── Reset ── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body, #root {
+html, body {
   height: 100%;
 }
 
@@ -72,12 +72,12 @@ body::after {
   min-height: 100vh;
 }
 
-/* Main card */
+/* ── Card ── */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 3.5rem 3.5rem;
+  padding: 3.5rem;
   width: 100%;
   max-width: 620px;
   box-shadow:
@@ -139,7 +139,6 @@ h1 {
 
 h1 span {
   color: var(--accent);
-  display: inline;
 }
 
 .subtitle {
@@ -179,6 +178,10 @@ h1 span {
   transition: color 0.2s;
 }
 
+.input-wrapper:focus-within .input-icon {
+  color: var(--accent);
+}
+
 input[type="text"] {
   width: 100%;
   background: var(--bg);
@@ -200,11 +203,6 @@ input[type="text"]::placeholder {
 input[type="text"]:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px #00e5c015, inset 0 0 20px #00e5c005;
-}
-
-input[type="text"]:focus + .input-icon,
-.input-wrapper:focus-within .input-icon {
-  color: var(--accent);
 }
 
 /* ── Button ── */
@@ -233,33 +231,9 @@ button::before {
   pointer-events: none;
 }
 
-button::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: #ffffff25;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
-  opacity: 0;
-}
-
-button:hover {
+button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px #00e5c040;
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-button:active::after {
-  width: 300px;
-  height: 300px;
-  opacity: 0;
 }
 
 button:disabled {
@@ -290,7 +264,6 @@ button:disabled {
   box-shadow: 0 0 40px #00e5c025;
 }
 
-/* Corner decorations */
 .qr-frame::before,
 .qr-frame::after {
   content: '';
@@ -300,11 +273,13 @@ button:disabled {
   border-color: var(--accent);
   border-style: solid;
 }
+
 .qr-frame::before {
   top: -4px; left: -4px;
   border-width: 2px 0 0 2px;
   border-radius: 4px 0 0 0;
 }
+
 .qr-frame::after {
   bottom: -4px; right: -4px;
   border-width: 0 2px 2px 0;
@@ -331,7 +306,6 @@ button:disabled {
   margin-bottom: 0.75rem;
 }
 
-/* Download link */
 .download-btn {
   display: inline-flex;
   align-items: center;
@@ -347,7 +321,6 @@ button:disabled {
   border: 1px solid #00e5c035;
   border-radius: 99px;
   transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
-  width: auto;
 }
 
 .download-btn:hover {
@@ -378,6 +351,71 @@ button:disabled {
   height: 4px;
   border-radius: 50%;
   background: var(--border);
+}
+
+/* ── Logo Upload ── */
+.logo-upload-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.logo-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px dashed #00e5c035;
+  border-radius: 99px;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.logo-upload-btn:hover,
+.logo-upload-btn.loaded {
+  background: var(--accent-dim);
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: 0 0 20px #00e5c020;
+}
+
+.logo-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: transparent;
+  border: 1px solid #ff4d6d35;
+  color: var(--error);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  width: auto;
+}
+
+.logo-remove-btn:hover {
+  background: #ff4d6d15;
+  border-color: var(--error);
+}
+
+.logo-preview {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  padding: 3px;
 }
 
 /* ── Responsive ── */
